@@ -88,6 +88,7 @@ public class Store {
             for (Product p : inventory) {
                 System.out.printf("%s | %s | $%.2f%n", p.getId(), p.getProductName(), p.getPrice());
             }
+            longDashes();
             System.out.println("Enter the id of the product you want to add to cart or enter X to go back to the home menu.");
             String userChoice = scanner.nextLine();
 
@@ -97,6 +98,7 @@ public class Store {
             }
 
             if (userChoice.isEmpty()) {
+                longDashes();
                 System.out.println("Please enter a product ID or X to go back to the home menu.");
                 continue;
             }
@@ -104,6 +106,7 @@ public class Store {
             Product foundProduct = findProductById(userChoice, inventory);
             if (foundProduct != null) {
                 cart.add(foundProduct);
+                longDashes();
                 System.out.println("You have successfully added " + foundProduct.getProductName() + " to your cart!");
                 found = true;
             }
@@ -112,6 +115,7 @@ public class Store {
                 System.out.println("no product found with that id " + userChoice + ", going back to the home menu");
                 break;
             }
+            longDashes();
             System.out.println("Do you want to add another product to your cart? Y for yes...N for no");
             String userSecondChoice = scanner.nextLine();
             if (!userSecondChoice.equalsIgnoreCase("y")) {
@@ -134,8 +138,10 @@ public class Store {
                 System.out.printf("%s | %s | $%.2f%n", c.getId(), c.getProductName(), c.getPrice());
                 total += c.getPrice();
             }
+            longDashes();
             System.out.printf("Your Total: $%.2f%n", total);
 
+            longDashes();
             System.out.println("Enter C to checkout or X to go back to the home menu");
             String userChoice = scanner.nextLine();
 
@@ -144,6 +150,7 @@ public class Store {
                 break;
             }
             if (userChoice.isEmpty()) {
+                longDashes();
                 System.out.println("Please enter C to checkout or X to go back to the home menu.");
                 continue;
             }
@@ -157,7 +164,6 @@ public class Store {
     public static void checkOut(ArrayList<Product> cart,
                                 double totalAmount,
                                 Scanner scanner) {
-        // TODO: implement steps listed above
         System.out.println("Are you sure you want to proceed to checkout? Y for yes...N for no");
         String confirmation = scanner.nextLine();
 
@@ -165,12 +171,15 @@ public class Store {
             System.out.println("checkout cancelled");
             return;
         }
+        longDashes();
         System.out.printf("Your Total Payment: $%.2f%n", totalAmount);
         double payment = 0.0;
 
         while (true) {
+            longDashes();
             System.out.println("Enter the amount of money your paying");
             if (!scanner.hasNextDouble()) {
+                longDashes();
                 System.out.println("please enter a number");
                 scanner.nextLine();
                 continue;
@@ -179,6 +188,7 @@ public class Store {
             scanner.nextLine();
 
             if (payment < totalAmount) {
+                longDashes();
                 System.out.println("Insufficient amount, the total due is: " + totalAmount);
             } else {
                 break;
@@ -213,6 +223,10 @@ public class Store {
 
     private static void defaultHeader() {
         System.out.printf("%s | %s | %S%n", "Product ID", "Product Name", "Price");
+        System.out.println("==========================================================");
+    }
+
+    private static void longDashes(){
         System.out.println("==========================================================");
     }
 }
