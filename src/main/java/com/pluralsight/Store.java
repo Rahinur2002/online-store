@@ -1,10 +1,7 @@
 
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -79,8 +76,30 @@ public class Store {
         }
     }
 
-    public static void receiptsFolder(){
-         File file = new File("Receipts")
+    public static void receiptsFolder(String receipt){
+        File folder = new File("Receipts");
+
+        try {
+            if (!folder.exists()) {
+                folder.mkdir();
+                System.out.println("Successfully created a new file: " + folder);
+            }
+        } catch (Exception e) {
+            System.err.println("error creating file: " + folder);
+        }
+        try {
+            String timeStamp = LocalDate.now().toString().replace("-", "")
+                    + String.format("%02d%02d%02d", LocalTime.now().getHour(),
+                    LocalTime.now().getMinute(), LocalTime.now().getSecond());
+
+            File receiptFolder = new File(folder, timeStamp + ".txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFolder));
+            writer.write(receipt);
+            writer.close();
+            System.out.println("Successfully saved the receipt");
+        } catch (Exception e) {
+            System.out.println("Error saving receipt" + e.getMessage());
+        }
     }
 
     public static void displayProducts(ArrayList<Product> inventory,
@@ -200,15 +219,23 @@ public class Store {
         }
         double change = payment - totalAmount;
 
-        System.out.println("==============================================");
-        System.out.println("Here's your receipt:");
+        StringBuilder sb = new StringBuilder();
+        sb.append("==============================================\n");
+        sb.append("Date: ").append(LocalDate.now()).append(" ").append(LocalTime.now().withNano(0)).append("\n");
+
+        sb.append("Here's your receipt:\n");
         for (Product c : cart) {
-            System.out.printf("%s $%.2f%n", c.getProductName(), c.getPrice());
+            sb.append(String.format("%s $%.2f%n", c.getProductName(), c.getPrice()));
         }
-        System.out.printf("TOTAL: $%.2f%n", totalAmount);
-        System.out.printf("PAYMENT: $%.2f%n", payment);
-        System.out.printf("CHANGE: $%.2f%n", change);
-        System.out.println("Thank you for shopping!");
+       sb.append(String.format("TOTAL: $%.2f%n", totalAmount));
+        sb.append(String.format("PAYMENT: $%.2f%n", payment));
+        sb.append(String.format("CHANGE: $%.2f%n", change));
+        sb.append("Thank you for shopping!");
+
+        System.out.println(sb.toString());
+
+        receiptsFolder(sb.toString());
+
 
         cart.clear();
 
