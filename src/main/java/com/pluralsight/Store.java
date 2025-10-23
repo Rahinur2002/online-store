@@ -76,7 +76,7 @@ public class Store {
         }
     }
 
-    public static void receiptsFolder(String receipt){
+    public static void receiptsFolder(String receipt) {
         File folder = new File("Receipts");
 
         try {
@@ -227,7 +227,7 @@ public class Store {
         for (Product c : cart) {
             sb.append(String.format("%s $%.2f%n", c.getProductName(), c.getPrice()));
         }
-       sb.append(String.format("TOTAL: $%.2f%n", totalAmount));
+        sb.append(String.format("TOTAL: $%.2f%n", totalAmount));
         sb.append(String.format("PAYMENT: $%.2f%n", payment));
         sb.append(String.format("CHANGE: $%.2f%n", change));
         sb.append("Thank you for shopping!");
@@ -242,7 +242,6 @@ public class Store {
     }
 
     public static Product findProductById(String id, ArrayList<Product> inventory) {
-        // TODO: loop over the list and compare ids
         for (Product p : inventory) {
             if (id.equalsIgnoreCase(p.getId())) {
                 return p;
@@ -257,7 +256,7 @@ public class Store {
         System.out.println("==========================================================");
     }
 
-    private static void longDashes(){
+    private static void longDashes() {
         System.out.println("==========================================================");
     }
 }
