@@ -79,6 +79,10 @@ public class Store {
         }
     }
 
+    public static void receiptsFolder(){
+         File file = new File("Receipts")
+    }
+
     public static void displayProducts(ArrayList<Product> inventory,
                                        ArrayList<Product> cart,
                                        Scanner scanner) {
