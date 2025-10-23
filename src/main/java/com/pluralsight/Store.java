@@ -1,6 +1,12 @@
 
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,8 +62,33 @@ public class Store {
      * A17|Wireless Mouse|19.99
      */
     public static void loadInventory(String fileName, ArrayList<Product> inventory) {
-        // TODO: read each line, split on "|",
-        //       create a Product object, and add it to the inventory list
+        File file = new File(fileName);
+        try {
+            if(!file.exists()) {
+                file.createNewFile();
+                System.out.println("No File found....Successfully created a new file: " + fileName);
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to create a new file");
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line;
+            while ((line =reader.readLine()) !=null) {
+                String[] tokens = line.split("\\|");
+                String productID = tokens[0];
+                String productName = tokens[1];
+                double price = Double.parseDouble(tokens[2]);
+
+                Product product = new Product(productID, productName, price);
+
+                inventory.add(product);
+            }
+            reader.close();
+
+        } catch (IOException e) {
+            System.err.println("error reading file: " + fileName);
+        }
     }
 
     /**
@@ -69,8 +100,43 @@ public class Store {
                                        Scanner scanner) {
         // TODO: show each product (id, name, price),
         //       prompt for an id, find that product, add to cart
-    }
 
+        while(true) {
+            System.out.println("Available Products");
+            for (Product p : inventory) {
+                System.out.printf("%s | %s | $%.2f%n", p.getId(), p.getProductName(), p.getPrice());
+            }
+            System.out.println("Enter the id of the product you want to add to cart or enter X to go back to the home menu.");
+            String userChoice = scanner.nextLine();
+
+            if (userChoice.equalsIgnoreCase("x")) {
+                System.out.println("Returning to the home menu.");
+                break;
+            }
+
+            if(userChoice.isEmpty()){
+                System.out.println("Please enter a product ID or X to go back to the home menu.");
+                continue;
+            }
+            boolean found = false;
+            for (Product p : inventory){
+                if (userChoice.equalsIgnoreCase(p.getId())){
+                    cart.add(p);
+                    System.out.println("You have successfully added " + p.getProductName() + " to your cart!");
+                    found = true;
+                }
+            }
+            if(!found){
+                System.out.println("no product found with that id " + userChoice + ", going back to the home menu");
+                break;
+            }
+            System.out.println("Do you want to add another product to your cart? Y for yes...N for no");
+            String userSecondChoice = scanner.nextLine();
+            if(!userSecondChoice.equalsIgnoreCase("y")){
+                break;
+            }
+        }
+    }
     /**
      * Shows the contents of the cart, calculates the total,
      * and offers the option to check out.
@@ -81,6 +147,36 @@ public class Store {
         //   • compute the total cost
         //   • ask the user whether to check out (C) or return (X)
         //   • if C, call checkOut(cart, totalAmount, scanner)
+        while(true) {
+            if (cart.isEmpty()) {
+                System.out.println("Your cart is currently empty, going back to home menu.");
+                return;
+            }
+
+            System.out.println("Your Cart");
+            double total = 0.0;
+            for (Product c : cart) {
+                System.out.printf("%s | %s | $%.2f%n", c.getId(), c.getProductName(), c.getPrice());
+                total += c.getPrice();
+            }
+            System.out.printf("Your Total: $%.2f%n", total);
+
+            System.out.println("Enter C to checkout or X to go back to the home menu");
+            String userChoice = scanner.nextLine();
+
+            if (userChoice.equalsIgnoreCase("x")) {
+                System.out.println("Returning to the home menu.");
+                break;
+            }
+            if(userChoice.isEmpty()){
+                System.out.println("Please enter C to checkout or X to go back to the home menu.");
+                continue;
+            }
+            if(userChoice.equalsIgnoreCase("c")){
+                checkOut(cart, total, scanner);
+                break;
+            }
+        }
     }
 
     /**
@@ -94,6 +190,7 @@ public class Store {
                                 double totalAmount,
                                 Scanner scanner) {
         // TODO: implement steps listed above
+
     }
 
     /**
