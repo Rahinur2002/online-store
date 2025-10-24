@@ -1,19 +1,26 @@
 # Project Title
 
+Online Store Console Application
+
 ## Description of the Project
 
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+This java console application is online store checkout system that allows the user to browser through different
+a list of available products, add products to their cart, and complete purchases with receipt being generated
+saved locally with a timestamp.
 
 ## User Stories
 
-List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
-
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
+- As a user, I want to be able to view available products , so that I can see all available products.
+- As a user, I want to be able to add available products to my cart using product iD, so I can keep track
+of products I want to buy.
+- As a user, I want to be able to view my shopping carts , so that I can review products and the total cost.
+- As a user, I want to be able to proceed to checkout , so that I can complete my purchase.
+- As a user, I want to be able to make payment, so that I can pay for my products I check out.
+- As a user, I want to receive a digital receipt , so that I can keep a record for my purchases.
 
 ## Setup
 
-Instructions on how to set up and run the project using IntelliJ IDEA.
+Follow  the steps below to set up the application.
 
 ### Prerequisites
 
@@ -32,37 +39,32 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Technologies Used
 
-- Java: Mention the version you are using.
-- Any additional libraries or frameworks used in the project.
+- Build System: Maven
+- Java: JDK 17
 
 ## Demo
 
-Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
-
-![Application Screenshot](path/to/your/screenshot.png)
+![Application Screenshot](Images/p1.png)
+![](Images/p2.png)
+![](Images/p3.png)
+![](Images/p4.png)
 
 ## Future Work
 
-Outline potential future enhancements or functionalities you might consider adding:
-
-- Additional feature to be developed.
-- Improvement of current functionalities.
+- Add a function to handle same products being added to the cart
+- Improve code readability 
 
 ## Resources
 
-List resources such as tutorials, articles, or documentation that helped you during the project.
-
-- [Java Programming Tutorial](https://www.example.com)
-- [Effective Java](https://www.example.com)
+- [Potato Sensei](https://chatgpt.com/g/g-681d378b0c90819197b16e49abe384ec-potato-sensei)
+- [W3School](https://www.w3schools.com/java/)
 
 ## Team Members
 
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
+- Raymond - Project Management
 
 ## Thanks
 
 Express gratitude towards those who provided help, guidance, or resources:
 
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
+- Thank you to Raymond and potato sensei  for continuous support and guidance.
